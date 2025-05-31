@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Double Pole Timing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --accent: #1e3a8a;
+      --bg: #f9fafb;
+      --text: #111827;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(30, 58, 138, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      color: white;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    nav a {
+      margin-left: 1.2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #93c5fd;
+    }
+    footer {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+    main {
+      max-width: 600px;
+      margin: 6rem auto 2rem;
+      padding: 2rem 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      resize: vertical;
+      font-family: 'Outfit', sans-serif;
+    }
+    textarea {
+      min-height: 120px;
+    }
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.85rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: var(--accent);
+    }
+    .contact-info {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .contact-info a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Double Pole Timing</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="results.html">Results</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Contact Us</h2>
+    <form action="mailto:info@doublepoletiming.com" method="POST" enctype="text/plain" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required placeholder="Your full name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="your.email@example.com" />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required placeholder="Write your message here..."></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div class="contact-info">
+      <p>Prefer direct contact? Email us at <a href="mailto:info@doublepoletiming.com">info@doublepoletiming.com</a></p>
+      <p>Or call us at <a href="tel:+1234567890">(123) 456-7890</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Have questions? <a href="mailto:info@doublepoletiming.com">info@doublepoletiming.com</a></p>
+    <p>&copy; 2025 Double Pole Timing. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
