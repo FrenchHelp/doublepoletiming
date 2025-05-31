@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | Double Pole Timing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --accent: #1e3a8a;
+      --bg: #f9fafb;
+      --text: #111827;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(30, 58, 138, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      color: white;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    nav a {
+      margin-left: 1.2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #93c5fd;
+    }
+    footer {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 6rem auto 2rem;
+      padding: 2rem 1rem;
+    }
+    h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+    h3 {
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      list-style-type: disc;
+      color: var(--text);
+    }
+    .highlight {
+      font-weight: 600;
+      color: var(--primary);
+    }
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .member {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .member h3 {
+      color: var(--primary);
+      margin-top: 0.5rem;
+    }
+    .member p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Double Pole Timing</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="results.html">Results</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>About Us</h2>
+
+    <p>
+      <span class="highlight">Double Pole Timing</span> is dedicated to delivering precise and reliable timing services for running, biking, and skiing events of all sizes. Our advanced RFID timing technology ensures accurate results for athletes, race directors, and fans alike.
+    </p>
+
+    <h3>What We Do</h3>
+    <p>
+      We offer comprehensive timing solutions that cover every aspect of race day management:
+    </p>
+    <ul>
+      <li><strong>RFID Chip Timing:</strong> Accurate detection at start, checkpoints, and finish lines with minimal errors.</li>
+      <li><strong>Real-Time Results:</strong> Instant updates available online and onsite for participants and spectators.</li>
+      <li><strong>Custom Race Management:</strong> Tailored solutions to fit your event size, terrain, and unique requirements.</li>
+      <li><strong>On-Site Support:</strong> Experienced technicians to set up, monitor, and troubleshoot during the event.</li>
+      <li><strong>Data Analysis & Reporting:</strong> Detailed race reports, split times, and ranking analytics.</li>
+    </ul>
+
+    <h3>Our Technology</h3>
+    <p>
+      We utilize state-of-the-art RFID tags and readers that provide high sensitivity and long-range detection, ensuring every participant’s time is recorded accurately. Our system integrates seamlessly with race management software to deliver fast and transparent results.
+    </p>
+
+    <h3>Our Commitment</h3>
+    <p>
+      At Double Pole Timing, we understand the passion and dedication behind every race. That’s why we prioritize reliability, transparency, and customer service. Whether it’s your first local 5K or a multi-day mountain biking race, we strive to make your event timing effortless and precise.
+    </p>
+
+    <div class="team">
+      <div class="member">
+        <h3>Alex Martin</h3>
+        <p>Founder & Lead Timer</p>
+      </div>
+      <div class="member">
+        <h3>Jamie Liu</h3>
+        <p>Event Support & Tech Ops</p>
+      </div>
+      <div class="member">
+        <h3>Sam Rivera</h3>
+        <p>Data & Results Manager</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Have questions? <a href="mailto:info@doublepoletiming.com">info@doublepoletiming.com</a></p>
+    <p>&copy; 2025 Double Pole Timing. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
