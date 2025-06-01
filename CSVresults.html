@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSV to Results Page</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f9fafb;
+    }
+    h1 {
+      color: #1e3a8a;
+    }
+    input[type="file"] {
+      margin: 1rem 0;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    pre {
+      white-space: pre-wrap;
+      background: #e5e7eb;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+      user-select: text;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSV to Results Page Generator</h1>
+  <p>Select a CSV file formatted as:</p>
+  <code>1,101,Jane Doe,34,F,5K Run,00:22:14</code>
+  <br/><br/>
+  <input type="file" id="csvFile" accept=".csv" />
+  <br/><br/>
+  <button onclick="generateHTML()">Generate Results Page</button>
+  <button onclick="copyCode()">Copy Code</button>
+  <pre id="output" tabindex="0" aria-label="Generated HTML code"></pre>
+<p>Make sure to put this code at the bottom before<code>&lt/body&gt<code>
+  <pre>
+  <code>
+  &ltscript&gt
+  document.addEventListener("DOMContentLoaded", function () {
+    const tables = document.querySelectorAll("table");
+
+    tables.forEach(table => {
+      const thead = table.querySelector("thead");
+      const headerRow = thead.rows[0];
+      const filterRow = table.insertRow(1);
+
+      // Add filter input under each header cell
+      Array.from(headerRow.cells).forEach((cell, index) => {
+        const th = document.createElement("th");
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Filter...";
+        input.style.width = "100%";
+        input.style.padding = "4px";
+        input.style.boxSizing = "border-box";
+
+        input.addEventListener("input", () => {
+          const filters = Array.from(filterRow.cells).map(c => c.querySelector("input").value.toLowerCase());
+          const rows = table.tBodies[0].rows;
+
+          Array.from(rows).forEach(row => {
+            const show = Array.from(row.cells).every((cell, i) =>
+              cell.textContent.toLowerCase().includes(filters[i])
+            );
+            row.style.display = show ? "" : "none";
+          });
+        });
+
+        th.appendChild(input);
+        filterRow.appendChild(th);
+      });
+    });
+  });
+&lt/script&gt
+</code>
+</pre>
+  <script>
+    let currentHTML = '';
+
+    function generateHTML() {
+      const file = document.getElementById('csvFile').files[0];
+      if (!file) return alert("Please select a CSV file");
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const csv = e.target.result.trim();
+        const rows = csv.split('\n').map(r => r.trim()).filter(Boolean);
+
+        // Parse and sort by Place (first column) ascending numeric
+        const parsedRows = rows.map(row => {
+          const [place, bib, name, age, gender, event, time] = row.split(',');
+          return { place: parseInt(place, 10), bib, name, age, gender, event, time };
+        }).sort((a,b) => a.place - b.place);
+
+        const htmlRows = parsedRows.map(({place, bib, name, age, gender, event, time}) => `
+          <tr>
+            <td data-label="Place">${place}</td>
+            <td data-label="Bib">${bib}</td>
+            <td data-label="Name">${name}</td>
+            <td data-label="Age">${age}</td>
+            <td data-label="Gender">${gender}</td>
+            <td data-label="Event">${event}</td>
+            <td data-label="Time">${time}</td>
+          </tr>`).join('\n');
+
+        currentHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Results - Double Pole Timing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --accent: #1e3a8a;
+      --bg: #f9fafb;
+      --text: #111827;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      padding-top: 70px;
+    }
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      background: rgba(30, 58, 138, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      color: white;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    nav a {
+      margin-left: 1.2rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: #93c5fd;
+    }
+    h1.page-title {
+      text-align: center;
+      color: var(--accent);
+      margin: 2rem 0 1rem;
+      font-weight: 800;
+    }
+    table {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    thead {
+      background: var(--accent);
+      color: white;
+    }
+    thead tr:hover {
+      background: #375ebf;
+      cursor: default;
+    }
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    tr:hover {
+      background: #f3f4f6;
+    }
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr {
+        margin-bottom: 1rem;
+      }
+      td {
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      td::before {
+        position: absolute;
+        top: 0;
+        left: 1rem;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: 600;
+        content: attr(data-label);
+        text-align: left;
+        color: var(--accent);
+      }
+    }
+    footer {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Double Pole Timing</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="results.html">Results</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <h1 class="page-title">Race Results</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Bib</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Event</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${htmlRows}
+    </tbody>
+  </table>
+
+  <footer>
+    <p>Have questions? <a href="mailto:info@doublepoletiming.com">info@doublepoletiming.com</a></p>
+    <p>&copy; 2025 Double Pole Timing. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+        `;
+
+        document.getElementById('output').textContent = currentHTML;
+      };
+      reader.readAsText(file);
+    }
+
+    function copyCode() {
+      if (!currentHTML) return alert("Generate the code first.");
+      navigator.clipboard.writeText(currentHTML).then(() => {
+        alert("Code copied to clipboard!");
+      }).catch(() => {
+        alert("Failed to copy code.");
+      });
+    }
+  </script>
+</body>
+</html>
